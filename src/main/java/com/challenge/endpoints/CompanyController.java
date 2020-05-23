@@ -16,7 +16,7 @@ public class CompanyController {
     private CompanyService companyService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<Company> findById(@PathVariable("id") Long id) {
         Optional<Company> companyOptional = this.companyService.findById(id);
         if (companyOptional.isPresent()) {
             return ResponseEntity.ok(companyOptional.get());
@@ -25,14 +25,14 @@ public class CompanyController {
     }
 
     @GetMapping
-    public ResponseEntity<?> findByAccelerationIdOrUserId(@RequestParam(value = "accelerationId", required = false) Optional<Long> accelerationId,
-                                                      @RequestParam(value = "userId", required = false) Optional<Long> userId) {
-        if(accelerationId.isPresent()){
-        return ResponseEntity.ok(this.companyService.findByAccelerationId(accelerationId.get()));
+    public ResponseEntity<List<Company>> findByAccelerationIdOrUserId(@RequestParam(value = "accelerationId", required = false) Optional<Long> accelerationId,
+                                                                      @RequestParam(value = "userId", required = false) Optional<Long> userId) {
+        if (accelerationId.isPresent()) {
+            return ResponseEntity.ok(this.companyService.findByAccelerationId(accelerationId.get()));
 
-        }else if(userId.isPresent()) {
+        } else if (userId.isPresent()) {
             return ResponseEntity.ok(this.companyService.findByAccelerationId(userId.get()));
-        }else
+        } else
             return ResponseEntity.ok(Collections.EMPTY_LIST);
     }
 }

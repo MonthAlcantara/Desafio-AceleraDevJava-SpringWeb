@@ -1,5 +1,6 @@
 package com.challenge.endpoints;
 
+import com.challenge.dto.SubmissionDTO;
 import com.challenge.entity.Submission;
 import com.challenge.mappers.SubmissionMapper;
 import com.challenge.service.impl.SubmissionService;
@@ -22,8 +23,8 @@ public class SubmissionController {
     private SubmissionMapper submissionMapper;
 
     @GetMapping("/{challengeId}/{accelerationId}")
-    public ResponseEntity<?> findByChallengeIdAndAccelerationId(@PathVariable("challengeId") Long challengeId,
-                                                             @PathVariable("accelerationId") Long accelerationId) {
+    public ResponseEntity<List<SubmissionDTO>> findByChallengeIdAndAccelerationId(@PathVariable("challengeId") Long challengeId,
+                                                                                  @PathVariable("accelerationId") Long accelerationId) {
         return ResponseEntity.ok(submissionMapper.map(submissionService.findByChallengeIdAndAccelerationId(challengeId, accelerationId)));
     }
 }

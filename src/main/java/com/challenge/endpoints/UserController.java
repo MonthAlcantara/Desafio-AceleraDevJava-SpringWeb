@@ -20,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable("id") Long userId) {
+    public ResponseEntity<User> findById(@PathVariable("id") Long userId) {
         Optional<User> userOptional = this.userService.findById(userId);
         if (userOptional.isPresent()) {
             return ResponseEntity.ok(userOptional.get());
@@ -29,12 +29,12 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<?> findByAccelerationNameOrCompanyId(@RequestParam(value = "accelerationName", required = false) Optional<String> accelerationName,
-                                                               @RequestParam(value = "companyId", required = false) Optional<Long> companyId) {
+    public ResponseEntity<List<User>> findByAccelerationNameOrCompanyId(@RequestParam(value = "accelerationName", required = false) Optional<String> accelerationName,
+                                                                        @RequestParam(value = "companyId", required = false) Optional<Long> companyId) {
         if (accelerationName.isPresent()) {
             return ResponseEntity.ok(this.userService.findByAccelerationName(accelerationName.get()));
         } else if (companyId.isPresent()) {
-          return ResponseEntity.ok(this.userService.findByCompanyId(companyId.get()));
+            return ResponseEntity.ok(this.userService.findByCompanyId(companyId.get()));
         }
         return ResponseEntity.ok(Collections.EMPTY_LIST);
     }
