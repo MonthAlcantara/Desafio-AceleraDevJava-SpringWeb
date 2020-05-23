@@ -36,6 +36,6 @@ public class UserController {
         } else if (companyId.isPresent()) {
             return ResponseEntity.ok(this.userService.findByCompanyId(companyId.get()));
         }
-        return ResponseEntity.ok(Collections.EMPTY_LIST);
+        return ResponseEntity.ok(Collections.emptyList());
     }
 }

@@ -33,6 +33,6 @@ public class CompanyController {
         } else if (userId.isPresent()) {
             return ResponseEntity.ok(this.companyService.findByAccelerationId(userId.get()));
         } else
-            return ResponseEntity.ok(Collections.EMPTY_LIST);
+            return ResponseEntity.ok(Collections.emptyList());
     }
 }

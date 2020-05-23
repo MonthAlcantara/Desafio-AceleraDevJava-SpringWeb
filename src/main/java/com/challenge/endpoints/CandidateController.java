@@ -37,7 +37,7 @@ public class CandidateController {
         } else if (accelerationId.isPresent()) {
             return ResponseEntity.ok(candidateMapper.map(candidateService.findByAccelerationId(accelerationId.get())));
         } else
-            return ResponseEntity.ok(Collections.EMPTY_LIST);
+            return ResponseEntity.ok(Collections.emptyList());
     }
 }
 
