@@ -18,8 +18,8 @@ public class ChallengeController {
     private ChallengeService challengeService;
 
     @GetMapping
-    public ResponseEntity<List<Challenge>> findByAccelerationIdAndUserId(@RequestParam(value = "accelerationId") Long accelerationId,
-                                                                         @RequestParam(value = "userId") Long userId) {
+    public ResponseEntity<List<Challenge>> findByAccelerationIdAndUserId(@RequestParam(name = "accelerationId", required = false) Long accelerationId,
+                                                                         @RequestParam(name = "userId", required = false) Long userId) {
         return ResponseEntity.ok((this.challengeService.findByAccelerationIdAndUserId(accelerationId, userId)));
 
 

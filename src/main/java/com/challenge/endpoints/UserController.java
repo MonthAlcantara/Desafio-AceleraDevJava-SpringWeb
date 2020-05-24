@@ -29,8 +29,8 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> findByAccelerationNameOrCompanyId(@RequestParam(value = "accelerationName", required = false) Optional<String> accelerationName,
-                                                                        @RequestParam(value = "companyId", required = false) Optional<Long> companyId) {
+    public ResponseEntity<List<User>> findByAccelerationNameOrCompanyId(@RequestParam(name = "accelerationName", required = false) Optional<String> accelerationName,
+                                                                        @RequestParam(name = "companyId", required = false) Optional<Long> companyId) {
         if (accelerationName.isPresent()) {
             return ResponseEntity.ok(this.userService.findByAccelerationName(accelerationName.get()));
         } else if (companyId.isPresent()) {

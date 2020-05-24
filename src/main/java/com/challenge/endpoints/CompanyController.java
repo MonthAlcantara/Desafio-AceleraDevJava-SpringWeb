@@ -3,6 +3,7 @@ package com.challenge.endpoints;
 import com.challenge.entity.Company;
 import com.challenge.repository.CompanyRepository;
 import com.challenge.service.impl.CompanyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/company")
 public class CompanyController {
+    @Autowired
     private CompanyService companyService;
 
     @GetMapping("/{id}")
@@ -25,14 +27,14 @@ public class CompanyController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Company>> findByAccelerationIdOrUserId(@RequestParam(value = "accelerationId", required = false) Optional<Long> accelerationId,
-                                                                      @RequestParam(value = "userId", required = false) Optional<Long> userId) {
+    public ResponseEntity<List<Company>> findByAccelerationIdOrUserId(@RequestParam(name = "accelerationId", required = false) Optional<Long> accelerationId,
+                                                                      @RequestParam(name = "userId", required = false) Optional<Long> userId) {
         if (accelerationId.isPresent()) {
             return ResponseEntity.ok(this.companyService.findByAccelerationId(accelerationId.get()));
 
         } else if (userId.isPresent()) {
             return ResponseEntity.ok(this.companyService.findByAccelerationId(userId.get()));
         } else
-            return ResponseEntity.ok(Collections.emptyList());
+            return ResponseEntity.ok(Collections.EMPTY_LIST);
     }
 }

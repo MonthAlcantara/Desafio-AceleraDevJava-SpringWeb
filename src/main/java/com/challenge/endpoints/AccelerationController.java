@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,17 +16,17 @@ public class AccelerationController {
     @Autowired
     private AccelerationService accelerationService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Acceleration> findById(@PathVariable("id") Long id) {
-        Optional<Acceleration> accelerationOptional = this.accelerationService.findById(id);
-        if (accelerationOptional.isPresent()) {
-            return ResponseEntity.ok(accelerationOptional.get());
-        } else
-            return ResponseEntity.notFound().build();
+    @GetMapping
+    public ResponseEntity<List<Acceleration>> findAllAccelerationByCompanyId(@RequestParam(name = "companyId") Long id) {
+        return ResponseEntity.ok(accelerationService.findByCompanyId(id));
     }
 
-    @GetMapping
-    public ResponseEntity<List<Acceleration>> findByCompanyId(@RequestParam(value = "id") Long companyId) {
-        return ResponseEntity.ok(this.accelerationService.findByCompanyId(companyId));
+    @GetMapping("/{id}")
+    public ResponseEntity<Acceleration> findAccelerationById(@PathVariable("id") Long id) {
+        Optional<Acceleration> accelerationOptional = accelerationService.findById(id);
+        if (accelerationOptional.isPresent()) {
+            return ResponseEntity.ok(accelerationOptional.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 }

@@ -30,8 +30,8 @@ public class CandidateController {
 
 
     @GetMapping
-    public ResponseEntity<List<CandidateDTO>> findByCompanyIdOrAccelerationId(@RequestParam(value = "companyId", required = false) Optional<Long> companyId,
-                                                                              @RequestParam(value = "accelerationId", required = false) Optional<Long> accelerationId) {
+    public ResponseEntity<List<CandidateDTO>> findByCompanyIdOrAccelerationId(@RequestParam(name = "companyId", required = false) Optional<Long> companyId,
+                                                                              @RequestParam(name = "accelerationId", required = false) Optional<Long> accelerationId) {
         if (companyId.isPresent()) {
             return ResponseEntity.ok(candidateMapper.map(candidateService.findByCompanyId(companyId.get())));
         } else if (accelerationId.isPresent()) {
