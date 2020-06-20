@@ -1,7 +1,9 @@
 package com.challenge.endpoints;
 
 import com.challenge.entity.Acceleration;
+import com.challenge.exception.ResourceNotFoundException;
 import com.challenge.service.impl.AccelerationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/acceleration")
 public class AccelerationController {
     @Autowired
@@ -22,11 +25,7 @@ public class AccelerationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Acceleration> findAccelerationById(@PathVariable("id") Long id) {
-        Optional<Acceleration> accelerationOptional = accelerationService.findById(id);
-        if (accelerationOptional.isPresent()) {
-            return ResponseEntity.ok(accelerationOptional.get());
-        }
-        return ResponseEntity.notFound().build();
+    public Acceleration findAccelerationById(@PathVariable("id") Long id) {
+        return accelerationService.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 }

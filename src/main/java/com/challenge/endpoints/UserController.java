@@ -1,11 +1,9 @@
 package com.challenge.endpoints;
 
 import com.challenge.entity.User;
-import com.challenge.repository.UserRepository;
 import com.challenge.service.impl.UserService;
-import com.challenge.service.interfaces.UserServiceInterface;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
     @Autowired
@@ -22,10 +21,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> findById(@PathVariable("id") Long userId) {
         Optional<User> userOptional = this.userService.findById(userId);
-        if (userOptional.isPresent()) {
-            return ResponseEntity.ok(userOptional.get());
-        }
-        return ResponseEntity.notFound().build();
+        return userOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping

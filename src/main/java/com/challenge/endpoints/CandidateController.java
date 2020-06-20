@@ -4,6 +4,7 @@ import com.challenge.dto.CandidateDTO;
 import com.challenge.entity.Candidate;
 import com.challenge.mappers.CandidateMapper;
 import com.challenge.service.impl.CandidateService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/candidate")
 public class CandidateController {
 
